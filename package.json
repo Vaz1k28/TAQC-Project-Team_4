@@ -1,0 +1,29 @@
+{
+  "name": "playwright",
+  "version": "1.0.0",
+  "description": "��#\u0000 \u0000p\u0000l\u0000a\u0000y\u0000w\u0000r\u0000i\u0000g\u0000h\u0000t\u0000\r\u0000 \u0000",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.59.1",
+    "@types/node": "^25.6.2"
+  },
+  "scripts": {
+    "test": "playwright test",
+    "report": "playwright show-report"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Vaz1k28/playwright.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Vaz1k28/playwright/issues"
+  },
+  "homepage": "https://github.com/Vaz1k28/playwright#readme"
+}
