@@ -42,7 +42,7 @@ jobs:
       with:
         ref: gh-pages
         path: gh-pages
-      continue-on-error: true # 
+      continue-on-error: true 
 
     - name: Build Allure Report
       uses: simple-elf/allure-report-action@master
@@ -68,4 +68,5 @@ jobs:
       with:
         branch: gh-pages
         folder: allure-history
-        clean: false 
+        clean: true
+        commit-message: "Deploy Allure Report - ${{ github.sha }}" 
