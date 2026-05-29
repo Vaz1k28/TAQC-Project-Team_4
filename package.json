@@ -8,11 +8,16 @@
   },
   "devDependencies": {
     "@playwright/test": "^1.59.1",
-    "@types/node": "^25.6.2"
+    "@types/node": "^25.6.2",
+    "allure-commandline": "^2.42.0",
+    "allure-playwright": "^3.9.0"
   },
   "scripts": {
-    "test": "playwright test",
-    "report": "playwright show-report"
+    "clean:allure": "rimraf allure-results allure-report",
+    "pretest": "npm run clean:allure",
+    "test": "npx playwright test",
+    "allure:generate": "allure generate allure-results --clean -o allure-report",
+    "allure:open": "allure open allure-report"
   },
   "repository": {
     "type": "git",
@@ -30,4 +35,5 @@
     "done": "1.1.8",
     "dotenv": "^17.4.2"
   }
+  
 }
