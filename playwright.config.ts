@@ -20,15 +20,9 @@ export default defineConfig({
   retries: process.env.CI ? 2 : 0,
   workers: process.env.CI ? 1 : undefined,
   reporter: [
-    ['html'],
-    [
-      'allure-playwright',
-      {
-        detail: true,
-        outputFolder: 'allure-results',
-      },
-    ],
-  ],
+  ['line'],
+  ['allure-playwright', { outputFolder: 'allure-results' }] // Саме цей рядок!
+],
 
   use: {
     baseURL: BASE_UI_URL,
