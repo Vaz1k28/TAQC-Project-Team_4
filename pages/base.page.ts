@@ -48,9 +48,8 @@ export class BasePage {
     }
 
     async openCreateNewsPage() {
-        await test.step('Navigate to create news page', async () => {
-            // Формуємо повний URL, склеюючи базову адресу з .env та шлях сторінки
-            await this.page.goto(`${process.env.BASE_URL}/news/create-news`);
+        await test.step('Navigate directly to create news page', async () => {
+            await this.page.goto(`${process.env.BASE_URL}/create-news`);
         });
     }
 }
