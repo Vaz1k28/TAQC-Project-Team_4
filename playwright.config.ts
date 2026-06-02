@@ -1,5 +1,7 @@
 import { defineConfig, devices } from '@playwright/test';
-import { BASE_UI_URL, HEADLESS } from './utils/env';
+
+const BASE_URL = process.env.BASE_URL ?? 'http://localhost:3000';
+const HEADLESS = process.env.HEADLESS !== 'false';
 
 
 /**
@@ -25,7 +27,7 @@ export default defineConfig({
 ],
 
   use: {
-    baseURL: BASE_UI_URL,
+    baseURL: BASE_URL,
     trace: 'on-first-retry',
     headless: HEADLESS,
     screenshot: 'only-on-failure',

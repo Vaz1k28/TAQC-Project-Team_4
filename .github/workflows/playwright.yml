@@ -6,6 +6,8 @@ on:
   pull_request:
     branches: [ main, master ]
 
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true'
 
 permissions:
   contents: write
@@ -34,6 +36,14 @@ jobs:
 
     - name: Run Playwright tests
       run: npm run test
+      env:
+        BASE_URL: ${{ secrets.BASE_URL }}
+        USER_EMAIL : ${{ secrets.LOGIN }}
+        USER_PASSWORD: ${{ secrets.PASSWORD }}
+        HEADLESS: ${{ secrets.HEADLESS }}
+        RETRIES: ${{ secrets.RETRIES }}
+        TIMEOUT: ${{ secrets.TIMEOUT }}
+        CI: true
       continue-on-error: true
 
     - name: Load Allure history from gh-pages

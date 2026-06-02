@@ -10,17 +10,24 @@ test.describe('GreenCity - Create News Form Validation', () => {
         await createNewsPage.openHomePage();
     });
 
-    await test.step('Precondition: Change language and Login to account', async () => {
-        await createNewsPage.languageChange();
-        await createNewsPage.login();
+    await test.step('Precondition: Change language and Login to account via UI Components', async () => {
+        // 1. Змінюємо мову через компонент хедера
+        await createNewsPage.header.changeLanguage('En');
+        
+        // 2. Клікаємо на іконку входу в хедері, щоб відкрити модалку
+        await createNewsPage.header.openLoginPanel();
+        
+        // 3. Заповнюємо форму і входимо (дані автоматично беруться з твого .env файлу)
+        await createNewsPage.loginPanel.login();
     });
 
     await test.step('Navigate to the Create News page form directly', async () => {
         await createNewsPage.openCreateNewsPage();
     });
 
+    // Валідація лейауту форми та перевірка readonly полів (Author / Date)
     await createNewsPage.verifyCreateNewsFormLayout();
-    await createNewsPage.expectAuthorAndDateAreReadonly();
-  });
+
+    });
 
 });

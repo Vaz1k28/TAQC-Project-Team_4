@@ -1,55 +1,29 @@
-import { Page, test, expect } from '@playwright/test';
-import { BaseTexture } from '../fixtures/base.texture';
+import { Page, test } from '@playwright/test';
+import { HeaderComponent } from '../components/header.component';
+import { LoginPanelComponent } from '../components/loginPanel.component';
+import { BASE_UI_URL } from '../components/base.component';
 
 export class BasePage {
     readonly page: Page;
+    public header: HeaderComponent;
+    public loginPanel: LoginPanelComponent;
 
     constructor(page: Page) {
         this.page = page;
+        this.header = new HeaderComponent(page);
+        this.loginPanel = new LoginPanelComponent(page);
     }
 
     async openHomePage() {
         await test.step('Open home page', async () => {
-            await this.page.goto(process.env.BASE_URL as string);
-        });
-    }
-
-    async languageChange() {
-        await test.step('Change language to English', async () => {
-            await this.page
-                .getByAltText(BaseTexture.language.switcherAlt)
-                .click();
-
-            await this.page
-                .getByText(BaseTexture.language.english, { exact: true })
-                .click();
-        });
-    }
-
-    async login() {
-        await test.step('Login to the application', async () => {
-            await this.page
-                .getByRole('img', { name: BaseTexture.login.signInImageAlt })
-                .click();
-
-            await this.page
-                .getByRole('textbox', { name: BaseTexture.login.emailLabel })
-                .fill(process.env.USER_EMAIL as string);
-
-            await this.page
-                .getByRole('textbox', { name: BaseTexture.login.passwordLabel })
-                .fill(process.env.USER_PASSWORD as string);
-
-            const signInBtn = this.page.getByRole('button', { name: BaseTexture.login.signInButtonName, exact: true });
-            await signInBtn.click();
-
-            await expect(signInBtn).toBeHidden();                
+            await this.page.goto(BASE_UI_URL || (process.env.BASE_URL as string));
         });
     }
 
     async openCreateNewsPage() {
         await test.step('Navigate directly to create news page', async () => {
-            await this.page.goto(`${process.env.BASE_URL}/create-news`);
+            const baseUrl = BASE_UI_URL || process.env.BASE_URL;
+            await this.page.goto(`${baseUrl}/create-news`);
         });
     }
 }
