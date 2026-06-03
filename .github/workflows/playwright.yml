@@ -44,13 +44,14 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-playwright-
 
-      - name: Install Playwright system dependencies
-        run: npx playwright install-deps chromium
-
       - name: Install Playwright Browsers
         if: steps.playwright-cache.outputs.cache-hit != 'true'
-        run: npx playwright install chromium
+        run: npx playwright install --with-deps
 
+      - name: Install Playwright OS Dependencies
+        if: steps.playwright-cache.outputs.cache-hit == 'true'
+        run: npx playwright install-deps
+      
       - name: Run Playwright tests
         run: npm run test
         env:
