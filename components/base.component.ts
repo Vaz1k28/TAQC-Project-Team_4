@@ -5,12 +5,12 @@ import path from 'path';
 
 dotenv.config({ path: path.resolve(__dirname, '../.env') });
 
-const BASE_UI_URL = process.env.BASE_UI_URL;
-const HEADLESS = process.env.HEADLESS === 'false' ? false : true;
+const BASE_URL = process.env.BASE_URL;
+const HEADLESS = process.env.HEADLESS;
 const USER_EMAIL = process.env.USER_EMAIL;
 const USER_PASSWORD = process.env.USER_PASSWORD;
 
-export { BASE_UI_URL, HEADLESS, USER_EMAIL, USER_PASSWORD };
+export { BASE_URL, HEADLESS, USER_EMAIL, USER_PASSWORD };
 export class BaseComponent {
   
   protected readonly page: Page;
@@ -25,12 +25,12 @@ export class BaseComponent {
   }
 
   
-  async expectToBeVisible(locator: Locator, timeout = 5000) {
-    await expect(locator).toBeVisible({ timeout });
+  async expectToBeVisible(locator: Locator) {
+    await expect(locator).toBeVisible();
   }
 
   
-  async expectToBeHidden(locator: Locator, timeout = 5000) {
-    await expect(locator).toBeHidden({ timeout });
+  async expectToBeHidden(locator: Locator) {
+    await expect(locator).toBeHidden();
   }
 }

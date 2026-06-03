@@ -3,7 +3,7 @@ import { BaseComponent, USER_EMAIL, USER_PASSWORD } from './base.component';
 import { BaseTexture } from '../fixtures/base.texture';
 
 export class LoginPanelComponent extends BaseComponent {
-    // Твої оригінальні локатори інпутів форми авторизації
+
     get emailInput() {
         return this.page.getByRole('textbox', { name: BaseTexture.login.emailLabel });
     }

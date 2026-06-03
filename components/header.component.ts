@@ -1,6 +1,6 @@
 import { test } from '@playwright/test';
 import { BaseComponent } from './base.component';
-import { BaseTexture } from '../fixtures/base.texture'; // Перевірте, чи правильний шлях до вашої текстури
+import { BaseTexture } from '../fixtures/base.texture'; 
 
 export class HeaderComponent extends BaseComponent {
     // Твої рідні та стабільні локатори з BaseTexture
