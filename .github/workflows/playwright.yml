@@ -31,33 +31,19 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Get Playwright version
-        id: playwright-version
-        run: echo "PLAYWRIGHT_VERSION=$(npx playwright --version | awk '{print $2}')" >> $GITHUB_ENV
-
-      - name: Cache Playwright Browsers
-        uses: actions/cache@v4
-        id: playwright-cache
-        with:
-          path: ~/.cache/ms-playwright
-          key: ${{ runner.os }}-playwright-${{ env.PLAYWRIGHT_VERSION }}
-          restore-keys: |
-            ${{ runner.os }}-playwright-
-
       - name: Install Playwright Browsers
-        if: steps.playwright-cache.outputs.cache-hit != 'true'
-        run: npx playwright install --with-deps
+        timeout-minutes: 5 
+        run: npm exec -- playwright install chromium
 
       - name: Install Playwright OS Dependencies
-        if: steps.playwright-cache.outputs.cache-hit == 'true'
-        run: npx playwright install-deps
+        run: npm exec -- playwright install-deps chromium
       
       - name: Run Playwright tests
         run: npm run test
         env:
           BASE_URL: ${{ secrets.BASE_URL }}
-          USER_EMAIL: ${{ secrets.LOGIN }}
-          USER_PASSWORD: ${{ secrets.PASSWORD }}
+          USER_EMAIL: ${{ secrets.USER_EMAIL }}
+          USER_PASSWORD: ${{ secrets.USER_PASSWORD }}
           HEADLESS: ${{ secrets.HEADLESS }}
           RETRIES: ${{ secrets.RETRIES }}
           TIMEOUT: ${{ secrets.TIMEOUT }}
@@ -70,7 +56,7 @@ jobs:
         with:
           ref: gh-pages
           path: gh-pages
-        continue-on-error: true
+      
 
       - name: Build Allure Report
         uses: simple-elf/allure-report-action@master
